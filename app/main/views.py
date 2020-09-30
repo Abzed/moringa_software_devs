@@ -8,14 +8,13 @@ from flask_user import roles_required
 
 # @route() must always be the outer-most decorator
 @main.route('/admin')
-@roles_required('Admin')
 def admin_dashboard():
     # render the admin dashboard
     return '<h1> Hi, Admin </h1>'
 
 @main.route('/')
 def index(): 
-    roles = Role.query.all()   
-    return render_template('index.html',roles=roles)
+    
+    return render_template('home-page.html')
 
 
