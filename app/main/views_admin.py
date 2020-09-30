@@ -6,7 +6,6 @@ from flask_login import login_required,current_user
 from .. import db,photos
 from flask_user import roles_required
 
-
 # @route() must always be the outer-most decorator
 @main.route('/admin/dashboard')
 @roles_required('Admin')
