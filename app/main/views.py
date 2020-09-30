@@ -16,3 +16,5 @@ def admin_dashboard():
 @main.route('/')
 def index():    
     return render_template('index.html')
+
+

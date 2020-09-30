@@ -21,7 +21,7 @@ def register():
         db.session.add_all([user, user_access])
         db.session.commit()
         
-        mail_message("Welcome to watchlist","email/welcome_user",user.email,user=user)
+        mail_message("Welcome to Moringa Software Devs","email/welcome_user",user.email,user=user)
         
         flash('Account Successfully created')
         
@@ -40,5 +40,5 @@ def login():
 
         flash('Invalid username or Password')
 
-    title = "Quote Bloggers login"
+    title = "Software Devs"
     return render_template('auth/login.html',login_form = login_form,title=title)

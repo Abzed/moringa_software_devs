@@ -21,6 +21,9 @@ class User(UserMixin,db.Model):
     roles = db.relationship('Role', secondary='user_roles', backref='uname', lazy='dynamic' )
     active = db.Column(db.Boolean())
     
+    def has_roles(self, *args):
+        return set(args).issubset({role.name for role in self.roles})
+    
     
     @property
     def password(self):
@@ -39,10 +42,8 @@ class User(UserMixin,db.Model):
 class Role(db.Model, RoleMixin):
     __tablename__ = 'role'
     id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(50), unique=True)
+    name = db.Column(db.String(50))
     
-    if role.uname == admin
-
 # Define the UserRoles association table        
 class UserRoles(db.Model):
     __tablename__ = 'user_roles'
@@ -50,15 +51,15 @@ class UserRoles(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     role_id = db.Column(db.Integer(), db.ForeignKey('role.id'))
     
-class Comment-id,commnt.... user_id.... post_id
+#class Comment-id,commnt.... user_id.... post_id
 
-class Content..... DevOPs,Fullstack,Front-End
+#class Content..... DevOPs,Fullstack,Front-End
 
-Posts-Posts, title, category,id,user_id
+#Posts-Posts, title, category,id,user_id
 
-Likes-id, like..int
+#Likes-id, like..int
 
-Dislikes-id, like..int
+#Dislikes-id, like..int
 
 
 
