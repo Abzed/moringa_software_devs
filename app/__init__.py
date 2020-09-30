@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
 from flask_simplemde import SimpleMDE
+from flask_security import SQLAlchemyUserDatastore, Security
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -15,6 +16,8 @@ login_manager.login_view = 'auth.login'
 photos = UploadSet('photos',IMAGES)
 mail = Mail()
 simple = SimpleMDE()
+security = Security()
+    
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -26,6 +29,7 @@ def create_app(config_name):
     login_manager.init_app(app)
     mail.init_app(app)
     simple.init_app(app)
+  
     
     configure_uploads(app,photos)
     

@@ -10,7 +10,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 class User(UserMixin,db.Model):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     
     id = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(255),index=True)
@@ -45,7 +45,7 @@ class Role(db.Model, RoleMixin):
 class UserRoles(db.Model):
     __tablename__ = 'user_roles'
     id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     role_id = db.Column(db.Integer(), db.ForeignKey('role.id'))
 
 
