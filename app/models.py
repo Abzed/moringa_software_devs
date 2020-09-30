@@ -1,6 +1,6 @@
-from . import db, create_app
+from . import db, create_app, LoginManager
 from werkzeug.security import generate_password_hash,check_password_hash 
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from flask_security import RoleMixin
 from . import login_manager
 from datetime import datetime
@@ -18,8 +18,11 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True,index = True)
     profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
-    roles = db.relationship('Role', secondary='user_roles', backref='uname', lazy='dynamic' )
-    active = db.Column(db.Boolean())
+    is_admin = db.Column(db.Boolean, default=False)
+    is_staff = db.Column(db.Boolean, default=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
+    department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))
+    
     
     def has_roles(self, *args):
         return set(args).issubset({role.name for role in self.roles})
@@ -43,13 +46,121 @@ class Role(db.Model, RoleMixin):
     __tablename__ = 'role'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50))
+    description = db.Column(db.String(200))
+    user_id = db.relationship('User', backref='roles', lazy='dynamic')
     
-# Define the UserRoles association table        
-class UserRoles(db.Model):
-    __tablename__ = 'user_roles'
-    id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
-    role_id = db.Column(db.Integer(), db.ForeignKey('role.id'))
+class Department(db.Model):
+    __tablename__ = 'departments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(60), unique=True)
+    description = db.Column(db.String(200))
+    userss = db.relationship('User', backref='department', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Department: {}>'.format(self.name)
+    
+class Post(db.Model):
+    __tablename__ = 'posts'
+    
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(255),nullable=False)
+    post = db.Column(db.String(255),nullable=False)
+    category = db.Column(db.String(255), index = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    posted = db.Column(db.DateTime,default=datetime.utcnow,onupdate=datetime.utcnow())
+    
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+        
+    @classmethod
+    def get_blog(cls,id):
+        posts = Post.query.filter_by(user_id=id).all()
+        return posts
+
+    
+class Comment(db.Model):
+    __tablename__ = 'comments' 
+    
+    id = db.Column(db.Integer, primary_key = True)
+    comments = db.Column(db.Text(),nullable=False)
+    title = db.Column(db.String(),nullable=False)
+    post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+        
+    def delete_comment(self):
+        db.session.delete(self)
+        db.session.commit()
+        
+    @classmethod
+    def get_comments(cls,blog_id):
+        comments = Comment.query.filter_by(post_id=post_id).all()
+
+        return comments
+        
+    def __repr__(self):
+        return f'Comment{self.comments}'
+    
+class Downvote(db.Model):
+    __tablename__ = 'downvotes'
+  
+    id = db.Column(db.Integer, primary_key=True)
+    downvote = db.Column(db.Integer,default=1)
+    post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def save_votes(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def add_downvotes(cls,id):
+        downvote_post = Downvote(user = current_user, post_id=id)
+        downvote_post.save_downvotes()
+
+    @classmethod
+    def get_votes(cls, id):
+        downvote = Downvote.query.filter_by(post_id=id).all()
+        return downvote
+
+    def __repr__(self):
+        return f'{self.id_user}:{self.post_id}'
+
+class Upvote(db.Model):
+    __tablename__ = 'upvotes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    upvote = db.Column(db.Integer,default=1)
+    post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
+    user_id =  db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def save_votes(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def add_upvotes(cls,id):
+        upvote_post = Upvote(user = current_user, post_id=id)
+        upvote_post.save_upvotes()
+
+
+    @classmethod
+    def get_votes(cls, id):
+        upvote = Upvote.query.filter_by(post_id=id).all()
+        return upvote
+
+    def __repr__(self):
+        return f'{self.id_user}:{self.post_id}' 
+
     
 #class Comment-id,commnt.... user_id.... post_id
 

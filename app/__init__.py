@@ -24,6 +24,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
+    login_manager.login_message = "You must be logged in to access this page."
     mail.init_app(app)
     simple.init_app(app)
     
