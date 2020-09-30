@@ -1,6 +1,7 @@
 from . import db, create_app
 from werkzeug.security import generate_password_hash,check_password_hash 
 from flask_login import UserMixin
+from flask_security import RoleMixin
 from . import login_manager
 from datetime import datetime
 from flask_security import SQLAlchemyUserDatastore, Security
@@ -37,8 +38,6 @@ class Role(db.Model, RoleMixin):
     __tablename__ = 'role'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), unique=True)
-    
-    if role.uname == admin
 
 # Define the UserRoles association table        
 class UserRoles(db.Model):
@@ -47,15 +46,15 @@ class UserRoles(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
     role_id = db.Column(db.Integer(), db.ForeignKey('role.id'))
     
-class Comment-id,commnt.... user_id.... post_id
+#class Comment-id,commnt.... user_id.... post_id
 
-class Content..... DevOPs,Fullstack,Front-End
+#class Content..... DevOPs,Fullstack,Front-End
 
-Posts-Posts, title, category,id,user_id
+#Posts-Posts, title, category,id,user_id
 
-Likes-id, like..int
+#Likes-id, like..int
 
-Dislikes-id, like..int
+#Dislikes-id, like..int
 
 
 
