@@ -1,6 +1,6 @@
 from flask import render_template,redirect,url_for,flash,request
-from flask_login import login_user,logout_user,login_required,current_user
-from ..models import User
+from flask_login import login_user,logout_user,login_required
+from ..models import User, Role, Department
 from .forms import RegistrationForm, LoginForm
 from .. import db
 from . import auth
@@ -17,13 +17,13 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email = form.email.data, username = form.username.data,password = form.password.data,
-                    is_admin =form.user_admin.data, is_staff=form.user_staff.data, is_student=form.user_student.data)
-        
+        user = User(email = form.email.data, username = form.username.data,password = form.password.data
+                    ,is_admin=form.admin.data, is_staff=form.staff.data
+                    )
         db.session.add(user)
         db.session.commit()
         
-        
+        mail_message("Welcome to Moringa Software Devs","email/welcome_user",user.email,user=user)
         
         flash('Account Successfully created')
         
@@ -47,5 +47,5 @@ def login():
 
         flash('Invalid username or Password')
 
-    title = " login"
+    title = "Software Devs"
     return render_template('auth/login.html',login_form = login_form,title=title)
