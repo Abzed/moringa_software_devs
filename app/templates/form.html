@@ -72,7 +72,7 @@
           <!--Grid column-->
           <div class="col-md-6 mb-4 white-text text-center text-md-left">
 
-            <h1 class="display-4 font-weight-bold">Hi User, Welcome To Admin Dashboard</h1>
+            <h1 class="display-4 font-weight-bold">Hi {{current_user.username}}, Welcome To Admin Dashboard</h1>
 
             <hr class="hr-light">
 
@@ -103,21 +103,16 @@
               
 
                 <!-- Form -->
-                
-                {% for users in user  %}
+              
                 <form action='' method='POST'>
-                {% endfor %}
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
                     <strong>Deactivate User</strong>
                   </h3>
                   <hr>
-                  <div class="md-form">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    {{ form.email }}
-                  </div>
-                  <div class="text-center">
-                    <input type='submit' class="btn btn-danger" value='Deactivate'>
+                  {% if user %}
+                  <p><a href="{{url_for('admin.delete_user',email=user.email)}}">Deactivation Form</a>
+                  {% endif %}
                     <hr>
                     <fieldset class="form-check">
                       <p><a href='{{url_for('auth.register')}}'>Or... Add a new user<a/></p>

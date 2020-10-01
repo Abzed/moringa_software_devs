@@ -27,13 +27,16 @@ def delete_user(email):
         
     form = DeleteForm()
     if form.validate_on_submit:
-        db.session.delete(user_mail)
-        db.session.commit()
+        if form.email.data == user_mail:
+            db.session.delete(user_mail)
+            db.session.commit()
+            
+            flash('You have successfully deactivated the user.')
     
-    flash('You have successfully deactivated the user.')
-    
-    # redirect to the home page    
-    return redirect(url_for('admin.admin_dashboard',user=user,user_mail=user_mail,form=form))
+            # redirect to the home page    
+            return redirect(url_for('admin.admin_dashboard',user=user,user_mail=user_mail,form=form))
+        
+    return render_template('delete.html')
         
         
     
