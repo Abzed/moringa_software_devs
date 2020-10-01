@@ -38,12 +38,13 @@ def login():
         user = User.query.filter_by(username = login_form.username.data).first()
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user,login_form.remember.data)
-            if user.is_admin == True:
-                return redirect( url_for('main.admin_dashboard'))
-            elif user.is_staff == True:
-                return redirect(url_for('main.staff_dashboard'))
-            elif user.is_student == True:
-                return redirect(url_for('main.student_dashboard'))
+            
+            if user.is_admin:
+                return redirect(url_for('admin.admin_dashboard'))
+            else:
+                return redirect(url_for('main.index'))
+            
+            return redirect(request.args.get('next') or url_for('main.index'))
 
         flash('Invalid username or Password')
 
