@@ -20,7 +20,7 @@ class User(UserMixin,db.Model):
     is_student = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))    
-    wishlist_id = db.Column(db.Integer, db.ForeignKey('departments.id'))    
+    wishlist_id = db.Column(db.Integer, db.ForeignKey('wishlists.id'))    
     
     @property
     def password(self):
