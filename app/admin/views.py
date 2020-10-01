@@ -9,11 +9,12 @@ from .forms import DeleteForm
 @admin.route('/admin')
 @login_required
 def admin_dashboard():
+    user = User.query.all()
     if not current_user.is_admin:
         abort(403)
-    return render_template('form.html', title="Admin Dashboard",form=DeleteForm)
+    return render_template('admin.html', title="Admin Dashboard",form=DeleteForm,user=user)
 
-@admin.route('/users/delete/<int:id>', methods=['GET', 'POST'])
+@admin.route('/users/delete/<int:id>', methods=['POST'])
 @login_required
 def delete_user(id):
     """
@@ -25,18 +26,19 @@ def delete_user(id):
     if not current_user.is_admin:
         abort(403)
         
-    form = DeleteForm()
-    if form.validate_on_submit:
-        if form.email.data == user_mail.email:
-            db.session.delete(user_mail)
-            db.session.commit()
-            
-            flash('You have successfully deactivated the user.')
-    
-            # redirect to the home page    
-            return redirect(url_for('admin.admin_dashboard',user=user,user_mail=user_mail,form=form))
+    db.session.delete(user_mail)
+    db.session.commit()
+                
+    # redirect to the home page    
+    return redirect(url_for('admin.admin_dashboard',user=user,user_mail=user_mail))
         
-    return render_template('delete.html')
+@admin.route('/admin/user_account_details')
+@login_required
+def all_users():
+    user = User.query.all()
+    
+    return render_template('users.html',user=user)
+
         
         
     
