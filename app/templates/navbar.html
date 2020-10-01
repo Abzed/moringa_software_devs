@@ -1,58 +1,71 @@
 <!--Navbar -->
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
-    aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('main.index') }}">Home
-        </a>
-      </li>
-      <li class="nav-item">
-      {% if current_user.is_admin %}
+ <nav class="navbar navbar-expand-lg navbar-light scrolling-navbar">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+        <strong>MSD</strong>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('main.index')}}">Home
+            </a>
+          </li>
+          <li class="nav-item">
+          {% if current_user.is_admin %}
         <a class="nav-link" href="{{url_for('admin.admin_dashboard')}}">Admin Dashboard</a>
         {% endif %}
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('auth.login')}}">Log In</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">Dropdown
-        </a>
-        <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-          <a class="dropdown-item" href="{{url_for('auth.logout')}}">Log Out</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto nav-flex-icons">
-      <li class="nav-item">
-        <a class="nav-link waves-effect waves-light">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link waves-effect waves-light">
-          <i class="fab fa-google-plus-g"></i>
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-default"
-          aria-labelledby="navbarDropdownMenuLink-333">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Add New Content</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Categories</a>
+          </li>
+        </ul>
+
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+        {% if current_user.is_authenticated %}
+        {% if profile %}
+          <li class="nav-item">
+            <a href="https://www.facebook.com/" class="nav-link" target="_blank">My Profile
+              <i class="far fa-user-circle"></i>
+            </a>
+          </li>
+          {% else %}
+            <li class="nav-item">
+            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
+              target="_blank">Create Profile
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a href="{{url_for('auth.logout')}}" class="nav-link" target="_blank">Sign Out
+             <i class="fas fa-user-alt-slash"></i>
+            </a>
+          </li>
+          {% else %}
+           <li class="nav-item">
+            <a href="{{url_for('auth.login')}}" class="nav-link" target="_blank">Sign In
+             <i class="fas fa-user-check"></i>
+            </a>
+          </li>
+        {% endif %}
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
 <!--/.Navbar -->
