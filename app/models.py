@@ -20,6 +20,7 @@ class User(UserMixin,db.Model):
     is_student = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))    
+    wishlist_id = db.Column(db.Integer, db.ForeignKey('wishlists.id'))    
     
     @property
     def password(self):
@@ -102,6 +103,17 @@ class Comment(db.Model):
         
     def __repr__(self):
         return f'Comment{self.comments}'
+    
+class Wishlist(db.Model):
+    __tablename__ = 'wishlists' 
+    
+    id = db.Column(db.Integer, primary_key=True)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    
+    def __repr__(self):
+        return f"Post('{self.content}', '{self.date_posted}')"
     
 
     

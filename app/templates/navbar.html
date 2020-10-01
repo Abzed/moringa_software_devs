@@ -42,7 +42,7 @@
         {% if current_user.is_authenticated %}
         {% if profile %}
           <li class="nav-item">
-            <a href="https://www.facebook.com/" class="nav-link" target="_blank">My Profile
+            <a href="https://www.facebook.com/" class="nav-link">My Profile
               <i class="far fa-user-circle"></i>
             </a>
           </li>
@@ -53,13 +53,13 @@
           </li>
           {% endif %}
           <li class="nav-item">
-            <a href="{{url_for('auth.logout')}}" class="nav-link" target="_blank">Sign Out
+            <a href="{{url_for('auth.logout')}}" class="nav-link">Sign Out
              <i class="fas fa-user-alt-slash"></i>
             </a>
           </li>
           {% else %}
            <li class="nav-item">
-            <a href="{{url_for('auth.login')}}" class="nav-link" target="_blank">Sign In
+            <a href="{{url_for('auth.login')}}" class="nav-link">Sign In
              <i class="fas fa-user-check"></i>
             </a>
           </li>

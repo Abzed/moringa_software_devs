@@ -8,7 +8,8 @@ from .. import db,photos
 
 # @route() must always be the outer-most decorator
 @main.route('/')
-def index():     
+def index():   
+    #user = User.query.all()  
     return render_template('home-page.html')
 
 @main.route('/categories')
