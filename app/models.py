@@ -17,6 +17,7 @@ class User(UserMixin,db.Model):
     pass_secure = db.Column(db.String(255))
     is_admin = db.Column(db.Boolean, default=False)
     is_staff = db.Column(db.Boolean, default=False)
+    is_student = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))    
     
