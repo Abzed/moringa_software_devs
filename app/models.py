@@ -131,10 +131,10 @@ class Wishlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
     def __repr__(self):
-        return f"Post('{self.content}', '{self.date_posted}')"
+        return f"Wishlist('{self.content}', '{self.date_posted}')"
     
     
 #class Comment-id,commnt.... user_id.... post_id
