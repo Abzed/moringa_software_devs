@@ -11,4 +11,7 @@ from .. import db,photos
 def index():     
     return render_template('home-page.html')
 
-
+@main.route('/categories')
+@login_required
+def categories():
+    return render_template('category-page.html')
