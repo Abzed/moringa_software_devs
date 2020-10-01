@@ -164,33 +164,25 @@
               <!--Card content-->
               <div class="card-body">
 
+              
+
                 <!-- Form -->
-                <form name="">
+                
+                {% for users in user  %}
+                <form action='' method='POST'>
+                {% endfor %}
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
                     <strong>Deactivate User</strong>
                   </h3>
                   <hr>
-
-                  <div class="md-form">
-                    <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control">
-                    <label for="form3">Name</label>
-                  </div>
                   <div class="md-form">
                     <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="text" id="form2" class="form-control">
-                    <label for="form2">Email</label>
-                  </div>
-
-                  <div class="md-form">
-                    <i class="fas fa-pencil-alt prefix grey-text"></i>
-                    <textarea type="text" id="form8" class="md-textarea"></textarea>
-                    <label for="form8">Your message</label>
+                    {{ form.email }}
                   </div>
 
                   <div class="text-center">
-                    <button class="btn btn-danger">Deactivate</button>
+                    <input type='submit' class="btn btn-danger" value='Deactivate'>
                     <hr>
                     <fieldset class="form-check">
                       <p><a href='{{url_for('auth.register')}}'>Or... Add a new user<a/></p>
@@ -199,6 +191,7 @@
 
                 </form>
                 <!-- Form -->
+                
 
               </div>
 
