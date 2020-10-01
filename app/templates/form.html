@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -12,9 +12,12 @@
   <link href="/static/admin/css/bootstrap.min.css" rel="stylesheet">
   <!-- Material Design Bootstrap -->
   <link href="/static/admin/css/mdb.min.css" rel="stylesheet">
+
   <!-- Your custom styles (optional) -->
   <link href="/static/admin/css/style.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
   <style type="/static/admin/text/css">
+
     html,
     body,
     header,
@@ -50,165 +53,122 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar">
-    <div class="container">
-
-      <!-- Brand -->
-      <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-        <strong>MSD</strong>
-      </a>
-
-      <!-- Collapse -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Links -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <!-- Left -->
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('main.index')}}">Home
-            </a>
-          </li>
-          <li class="nav-item">
-          {% if current_user.is_admin %}
-        <a class="nav-link" href="{{url_for('admin.admin_dashboard')}}">Admin Dashboard</a>
-        {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Add New Content</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Categories</a>
-          </li>
-        </ul>
-
-        <!-- Right -->
-        <ul class="navbar-nav nav-flex-icons">
-        {% if current_user.is_authenticated %}
-        {% if profile %}
-          <li class="nav-item">
-            <a href="https://www.facebook.com/" class="nav-link" target="_blank">My Profile
-              <i class="far fa-user-circle"></i>
-            </a>
-          </li>
-          {% else %}
-            <li class="nav-item">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-              target="_blank">Create Profile
-            </a>
-          </li>
-          {% endif %}
-          <li class="nav-item">
-            <a href="{{url_for('auth.logout')}}" class="nav-link" target="_blank">Sign Out
-             <i class="fas fa-user-alt-slash"></i>
-            </a>
-          </li>
-          {% else %}
-           <li class="nav-item">
-            <a href="{{url_for('auth.login')}}" class="nav-link" target="_blank">Sign In
-             <i class="fas fa-user-check"></i>
-            </a>
-          </li>
-        {% endif %}
-        </ul>
-
-      </div>
-
-    </div>
-  </nav>
+{% block navbar %}
+  {% include 'navbar.html' %}
+{% endblock %}
   <!-- Navbar -->
-
-  <!-- Full Page Intro -->
-  <div class="view full-page-intro" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg'); background-repeat: no-repeat; background-size: cover;">
+<div class="">
+  <div class="view full-page-intro" style="background-image:linear-gradient(rgba(255, 255, 255, 0.822),rgba(255, 255, 255, 0.041)), url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg'); background-repeat: no-repeat; background-size: cover;">
 
     <!-- Mask & flexbox options-->
     <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
 
-      <!-- Content -->
-      <div class="container">
+      <div class="outer">
+        <div class="container mt-5">
 
-        <!--Grid row-->
-        <div class="row wow fadeIn">
-
-          <!--Grid column-->
-          <div class="col-md-6 mb-4 white-text text-center text-md-left">
-
-            <h1 class="display-4 font-weight-bold">Hi User, Welcome To Admin Dashboard</h1>
-
-            <hr class="hr-light">
-
-            <p>
-              <strong></strong>
-            </p>
-
-            <p class="mb-4 d-none d-md-block">
-              <strong>Manage registrations, account deactivation and approve posted contents!</strong>
-            </p>
-
-            <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-indigo btn-lg">Approve Contents
-              <i class="fas fa-check-double"></i>
-            </a>
-
-          </div>
-          <!--Grid column-->
-
-          <!--Grid column-->
-          <div class="col-md-6 col-xl-5 mb-4">
-
-            <!--Card-->
-            <div class="card">
-
-              <!--Card content-->
-              <div class="card-body">
-
-                <!-- Form -->
-                <form name="">
-                  <!-- Heading -->
-                  <h3 class="dark-grey-text text-center">
-                    <strong>Deactivate User</strong>
-                  </h3>
-                  <hr>
-
-                  <div class="md-form">
-                    <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control" placeholder="UserName">
+         <div class="outer">
+           <div class="container">
+            <div class="row wow fadeIn">
+            
+              <!--Grid column-->
+              <div class="col-md-6 mb-4 white-text text-center text-md-left">
+                <div class="outer">
+                  <div class="container">
+                    <h1 class="display-4 font-weight-bold">
+                      Hi User, Welcome To Admin Dashboard
+                    </h1>
+    
+                    <hr class="hr-light">
+        
+                    <p>
+                      <strong></strong>
+                    </p>
+        
+                    <p class="mb-4 d-none d-md-block">
+                      <strong>Manage registrations, account deactivation and approve posted contents!</strong>
+                    </p>
+        
+                    <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-indigo btn-lg">Approve Contents
+                      <i class="fas fa-check-double"></i>
+                    </a>
+        
                   </div>
-                  <div class="md-form">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="text" id="form2" class="form-control" placeholder="email">
                   </div>
+                </div>
+                
+              <!--Grid column-->
+    
+              <!--Grid column-->
+              <div class="col-md-6 col-xl-5 mb-4">
+                <div class="outer">
+                  <div class="container">
+                    <div class="card mt-3 shadow-md ">
+    
+                      <!-- Form -->
+                      <form name="">
+                        <!-- Heading -->
+                        <h3 class="dark-white-text text-center">
+                          <strong>Deactivate User</strong>
+                        </h3>
+                        <hr>
+                        <div class="container">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text blue">
+                                <i class="fas fa-user prefix white-text"></i>
+                              </div>
+                            </div>
+                            <input type="text" id="inlineFormInputGroupUsername" class="form-control" placeholder="UserName">
+                          </div>
 
-                  <div class="md-form">
-                    <i class="fas fa-pencil-alt prefix grey-text"></i>
-                    <textarea type="text" id="form8" class="md-textarea"></textarea>
-                    <label for="form8">Your message</label>
+                        </div>
+                        <div class="container mt-3">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text blue">
+                                <i class="fas fa-envelope prefix white-text"></i>
+                              </div>
+                            </div>
+                            <input type="email" id="inlineFormInputGroupemail" class="form-control" placeholder="email">
+                          </div>
+        
+                        </div>
+                        <div class="container">
+                          <div class="md-form">
+                            <i class="fas fa-pencil-alt prefix grey-text"></i>
+                            <textarea type="text" id="form8" class="md-textarea"></textarea>
+                            <label for="form8">Your message</label>
+                          </div>
+                        </div>
+
+                        <div class="text-center">
+                          <button class="btn btn-danger">Deactivate</button>
+                          <hr>
+                          <fieldset class="form-check">
+                            <p><a href='{{url_for('auth.register')}}'>Or... Add a new user<a/></p>
+                          </fieldset>
+                        </div>
+      
+                      </form>
+                      <!-- Form -->
+      
+                    </div>
                   </div>
-                  <div class="text-center">
-                    <button class="btn btn-danger">Deactivate</button>
-                    <hr>
-                    <fieldset class="form-check">
-                      <p><a href='{{url_for('auth.register')}}'>Or... Add a new user<a/></p>
-                    </fieldset>
-                  </div>
+                </div>
 
-                </form>
-                <!-- Form -->
-
+    
               </div>
-
+              <!--Grid column-->
+    
             </div>
-            <!--/.Card-->
+           </div>
+         </div>
 
-          </div>
-          <!--Grid column-->
-
+          <!--Grid row-->
+  
         </div>
-        <!--Grid row-->
-
       </div>
+
       <!-- Content -->
 
     </div>
@@ -707,6 +667,10 @@
     <!--/.Copyright-->
 
   </footer>
+
+</div>
+  <!-- Full Page Intro -->
+
   <!--/.Footer-->
 
   <!-- SCRIPTS -->
@@ -719,7 +683,9 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="js/mdb.min.js"></script>
   <!-- Initializations -->
-  <script type="text/javascript">
+  <script type="text/javascript"></script>
+  <script src="{{url_for('static',filename='customjs/custom.js')}}"></script>
+
     // Animations initialization
     new WOW().init();
   </script>
