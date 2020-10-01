@@ -12,4 +12,7 @@ def index():
     user = User.query.all()  
     return render_template('home-page.html',user=user)
 
-
+@main.route('/categories')
+@login_required
+def categories():
+    return render_template('category-page.html')
