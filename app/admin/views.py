@@ -37,7 +37,4 @@ def delete_user(id):
             return redirect(url_for('admin.admin_dashboard',user=user,user_mail=user_mail,form=form))
         
     return render_template('delete.html')
-        
-        
-    
-    
+
