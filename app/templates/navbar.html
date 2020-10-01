@@ -39,7 +39,8 @@
         </a>
         <div class="dropdown-menu dropdown-menu-center dropdown-default p-2"
           aria-labelledby="navbarDropdownMenuLink-333">
-          
+        {% if current_user.is_authenticated %}
+            
           {% if current_user.is_staff == True %}
           <a class="dropdown-item" href="{{ url_for('main.staff_profile') }}">View profile</a>
           <a class="dropdown-item" href="{{ url_for('main.courses') }}">Courses</a>
@@ -49,6 +50,8 @@
           <a class="dropdown-item" href="{{ url_for('main.courses') }}">Courses</a>
           <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a>
           {% endif %}
+
+        {% endif %}
           
           <a class="dropdown-item" href="{{ url_for('auth.login') }}">login</a>
 
