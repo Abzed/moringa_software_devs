@@ -16,9 +16,10 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email = form.email.data, username = form.username.data,password = form.password.data)
-        user_access = Role(name=form.user_access.data)
-        db.session.add_all([user, user_access])
+        user = User(email = form.email.data, username = form.username.data,password = form.password.data
+                    ,is_admin=form.admin.data, is_staff=form.staff.data
+                    )
+        db.session.add(user)
         db.session.commit()
         
         mail_message("Welcome to Moringa Software Devs","email/welcome_user",user.email,user=user)

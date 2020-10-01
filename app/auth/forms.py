@@ -6,9 +6,10 @@ from wtforms import ValidationError
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Your Email Address',validators=[Required(),Email()])
-    username = StringField('Enter your username',validators = [Required()])
-    user_access = SelectField('Access Level', choices=[('Admin','Admin'),('Staff','Staff'),('Student','Student')],validators=[Required()])
+    staff = BooleanField('Staff')
+    admin = BooleanField('Admin')
+    email = StringField('User Email Address',validators=[Required(),Email()])
+    username = StringField('Username',validators = [Required()])
     password = PasswordField('Password',validators = [Required(), EqualTo('password_confirm',message = 'Passwords must match')])
     password_confirm = PasswordField('Confirm Passwords',validators = [Required()])
     submit = SubmitField('Sign Up')
