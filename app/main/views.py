@@ -10,7 +10,7 @@ from .. import db,photos
 @main.route('/')
 def index():   
     #user = User.query.all()  
-    return render_template('home-page.html')
+    return render_template('index.html')
 
 @main.route('/categories')
 @login_required
