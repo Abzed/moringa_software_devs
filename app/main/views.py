@@ -2,6 +2,7 @@ from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
 from .forms import BioForm, CommentForm, UpdateProfile
 from ..models import User,Role,Department,Post,Comment
+from ..models import User,Role,Department,Post,Comment,Category
 from flask_login import login_required,current_user
 from .. import db,photos
 #from flask_user import roles_required
@@ -12,7 +13,7 @@ def index():
     user = User.query.all()  
     return render_template('home-page.html', user=user)
 
-@main.route('/categories')
+@main.route('/all_articles')
 @login_required
 def categories():
     return render_template('category-page.html')
@@ -57,3 +58,6 @@ def update_pic(uname):
         db.session.commit()
 
     return redirect(url_for('.profile',uname=uname))
+def articles():
+    category = Category.query.all()
+    return render_template('articles.html',category=category)

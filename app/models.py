@@ -69,7 +69,7 @@ class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     title = db.Column(db.String(255),nullable=False)
     post = db.Column(db.String(255),nullable=False)
-    category = db.Column(db.String(255), index = True)
+    category = db.Column(db.Integer, db.ForeignKey('categories.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     posted = db.Column(db.DateTime,default=datetime.utcnow,onupdate=datetime.utcnow())
     
@@ -85,7 +85,20 @@ class Post(db.Model):
     def get_blog(cls,id):
         posts = Post.query.filter_by(user_id=id).all()
         return posts
+    
+class Category(db.Model):
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String,nullable=False)
 
+    def save_category(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_categories(cls):
+        categories = Category.query.all()
+        return categories
     
 class Comment(db.Model):
     __tablename__ = 'comments' 
@@ -119,10 +132,10 @@ class Wishlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
     def __repr__(self):
-        return f"Post('{self.content}', '{self.date_posted}')"
+        return f"Wishlist('{self.content}', '{self.date_posted}')"
     
     
 #class Comment-id,commnt.... user_id.... post_id

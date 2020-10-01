@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField,SubmitField,BooleanField,SelectField
-from wtforms.validators import Required,Email,EqualTo
+from wtforms import StringField,PasswordField,SubmitField,BooleanField,SelectField,TextAreaField
+from wtforms.validators import Required,Email,EqualTo,DataRequired
 from ..models import User,Role,Department
 from wtforms import ValidationError
 
@@ -27,3 +27,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password',validators =[Required()])
     remember = BooleanField('Remember me')
     submit = SubmitField('Log In')
+
+class WishlistForm(FlaskForm):
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('add to wishlist')     

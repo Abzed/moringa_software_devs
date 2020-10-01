@@ -27,10 +27,13 @@
         <a class="nav-link" href="{{url_for('admin.admin_dashboard')}}">Admin Dashboard</a>
         {% endif %}
           <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" >Add New Content</a>
+            <a class="nav-link" href="{{url_for('main.articles')}}">All Articles</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('main.categories')}}">Categories</a>
+            <a class="nav-link" href="{{url_for('admin.category')}}">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth.new_wishlist') }}">wishlist</a>
           </li>
         </ul>
 
@@ -39,7 +42,7 @@
         {% if current_user.is_authenticated %}
         {% if profile %}
           <li class="nav-item">
-            <a href="https://www.facebook.com/" class="nav-link">My Profile
+            <a href="#" class="nav-link">My Profile
               <i class="far fa-user-circle"></i>
             </a>
           </li>

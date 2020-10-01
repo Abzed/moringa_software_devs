@@ -1,7 +1,7 @@
 from flask import render_template,redirect,url_for,flash,request
 from flask_login import login_user,logout_user,login_required
-from ..models import User, Role, Department
-from .forms import RegistrationForm, LoginForm
+from ..models import User, Role, Department, Wishlist
+from .forms import RegistrationForm, LoginForm, WishlistForm
 from .. import db
 from . import auth
 from ..email import mail_message
@@ -50,3 +50,23 @@ def login():
 
     title = "Software Devs"
     return render_template('auth/login.html',login_form = login_form,title=title)
+
+@auth.route("/wishlist/new", methods=['GET', 'POST'])
+@login_required
+def new_wishlist():
+    form = WishlistForm()
+    if form.validate_on_submit():
+        wishlist = Wishlist(content=form.content.data)
+        db.session.add(wishlist)
+        db.session.commit()
+        flash('Added to your wishlist!', 'success')
+        return redirect(url_for('auth.wishlist'))
+    return render_template('create_wishlist.html', title='New Wishlist',
+                           form=form, legend='New Wishlist')
+
+
+@auth.route("/wishlist")
+def wishlist():
+
+    wishlists = Wishlist.query.all()
+    return render_template('wishlist.html', wishlists=wishlists)
