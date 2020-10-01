@@ -60,7 +60,7 @@ class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     title = db.Column(db.String(255),nullable=False)
     post = db.Column(db.String(255),nullable=False)
-    category = db.Column(db.String(255), index = True)
+    category = db.Column(db.Integer, db.ForeignKey('categories.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     posted = db.Column(db.DateTime,default=datetime.utcnow,onupdate=datetime.utcnow())
     
@@ -76,7 +76,20 @@ class Post(db.Model):
     def get_blog(cls,id):
         posts = Post.query.filter_by(user_id=id).all()
         return posts
+    
+class Category(db.Model):
+    __tablename__ = 'categories'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String,nullable=False)
 
+    def save_category(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_categories(cls):
+        categories = Category.query.all()
+        return categories
     
 class Comment(db.Model):
     __tablename__ = 'comments' 
