@@ -1,6 +1,6 @@
 from flask import render_template,redirect,url_for,flash,request
-from flask_login import login_user,logout_user,login_required
-from ..models import User, Role
+from flask_login import login_user,logout_user,login_required,current_user
+from ..models import User
 from .forms import RegistrationForm, LoginForm
 from .. import db
 from . import auth
@@ -13,15 +13,17 @@ def logout():
     return redirect(url_for("main.index"))
 
 @auth.route('/register',methods = ["GET","POST"])
+@login_required
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email = form.email.data, username = form.username.data,password = form.password.data)
-        user_access = Role(name=form.user_access.data)
-        db.session.add_all([user, user_access])
+        user = User(email = form.email.data, username = form.username.data,password = form.password.data,
+                    is_admin =form.user_admin.data, is_staff=form.user_staff.data, is_student=form.user_student.data)
+
+        db.session.add(user)
         db.session.commit()
         
-        mail_message("Welcome to watchlist","email/welcome_user",user.email,user=user)
+        
         
         flash('Account Successfully created')
         
@@ -36,9 +38,14 @@ def login():
         user = User.query.filter_by(username = login_form.username.data).first()
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user,login_form.remember.data)
-            return redirect(request.args.get('next') or url_for('main.index'))
+            if user.is_admin == True:
+                return redirect( url_for('main.admin_dashboard'))
+            elif user.is_staff == True:
+                return redirect(url_for('main.staff_dashboard'))
+            elif user.is_student == True:
+                return redirect(url_for('main.student_dashboard'))
 
         flash('Invalid username or Password')
 
-    title = "Quote Bloggers login"
+    title = " login"
     return render_template('auth/login.html',login_form = login_form,title=title)

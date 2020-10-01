@@ -9,10 +9,14 @@
     background: linear-gradient(rgba(0, 0, 0, 0.356),rgba(0, 0, 0, 0.486)) ,url(/static/imgs_bg/studies.jpg)center center no-repeat;
     background-size: cover;
     width: 100%;
-    height: 100vh;
+    height: auto;
 }  
-.text-bold{
-    font-weight: 300px;
+.bg-vh{
+    width: 100%;
+    height: 100vh;
+}
+.txt-bold{
+    font-weight:bolder;
 }
 .rnd{
     border-radius: 20px;

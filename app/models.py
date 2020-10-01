@@ -1,25 +1,25 @@
 from . import db, create_app
 from werkzeug.security import generate_password_hash,check_password_hash 
 from flask_login import UserMixin
-from flask_security import RoleMixin
 from . import login_manager
 from datetime import datetime
-from flask_security import SQLAlchemyUserDatastore, Security
 
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(255),index=True)
     email = db.Column(db.String(255),unique = True,index = True)
-    profile_pic_path = db.Column(db.String())
     pass_secure = db.Column(db.String(255))
-    
-    
-    
-    
+    is_admin=db.Column(db.Boolean,default=True)
+    is_staff= db.Column(db.Boolean,default=False)
+    is_student= db.Column(db.Boolean,default=False)
+
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
@@ -34,18 +34,7 @@ class User(UserMixin,db.Model):
     def __repr__(self):
         return f'User {self.username}'
     
-class Role(db.Model, RoleMixin):
-    __tablename__ = 'role'
-    id = db.Column(db.Integer(), primary_key=True)
-    name = db.Column(db.String(50), unique=True)
 
-# Define the UserRoles association table        
-class UserRoles(db.Model):
-    __tablename__ = 'user_roles'
-    id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('users.id'))
-    role_id = db.Column(db.Integer(), db.ForeignKey('role.id'))
-    
 #class Comment-id,commnt.... user_id.... post_id
 
 #class Content..... DevOPs,Fullstack,Front-End
