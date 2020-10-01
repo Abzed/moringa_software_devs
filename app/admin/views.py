@@ -28,10 +28,8 @@ def delete_user(id):
         
     db.session.delete(user_mail)
     db.session.commit()
-            
-    flash('You have successfully deactivated the user.')
-    
-            # redirect to the home page    
+                
+    # redirect to the home page    
     return redirect(url_for('admin.admin_dashboard',user=user,user_mail=user_mail))
         
 @admin.route('/admin/user_account_details')
