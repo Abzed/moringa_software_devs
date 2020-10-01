@@ -15,25 +15,28 @@ def admin_dashboard():
 
 @admin.route('/users/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
-def delete_user(email):
+def delete_user(id):
     """
     Deactivate a user from the database
     """
     user = User.query.all()
-    user_mail = User.query.get(email)
+    user_mail = User.query.get(id)
     
     if not current_user.is_admin:
         abort(403)
         
     form = DeleteForm()
     if form.validate_on_submit:
-        db.session.delete(user_mail)
-        db.session.commit()
+        if form.email.data == user_mail.email:
+            db.session.delete(user_mail)
+            db.session.commit()
+            
+            flash('You have successfully deactivated the user.')
     
-    flash('You have successfully deactivated the user.')
-    
-    # redirect to the home page    
-    return redirect(url_for('admin.admin_dashboard',user=user,user_mail=user_mail,form=form))
+            # redirect to the home page    
+            return redirect(url_for('admin.admin_dashboard',user=user,user_mail=user_mail,form=form))
+        
+    return render_template('delete.html')
         
         
     

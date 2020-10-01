@@ -136,7 +136,7 @@
           <!--Grid column-->
           <div class="col-md-6 mb-4 white-text text-center text-md-left">
 
-            <h1 class="display-4 font-weight-bold">Hi User, Welcome To Admin Dashboard</h1>
+            <h1 class="display-4 font-weight-bold">Hi {{current_user.username}}, Welcome To Admin Dashboard</h1>
 
             <hr class="hr-light">
 
@@ -167,38 +167,15 @@
               
 
                 <!-- Form -->
-                
-                {% for users in user  %}
                 <form action='' method='POST'>
-                {% endfor %}
                   <!-- Heading -->
                   <h3 class="dark-grey-text text-center">
                     <strong>Deactivate User</strong>
                   </h3>
                   <hr>
-<<<<<<< HEAD
-                  <div class="md-form">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    {{ form.email }}
-=======
-
-                  <div class="md-form">
-                    <i class="fas fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control" placeholder="UserName">
-                  </div>
-                  <div class="md-form">
-                    <i class="fas fa-envelope prefix grey-text"></i>
-                    <input type="text" id="form2" class="form-control" placeholder="email">
-                  </div>
-
-                  <div class="md-form">
-                    <i class="fas fa-pencil-alt prefix grey-text"></i>
-                    <textarea type="text" id="form8" class="md-textarea"></textarea>
-                    <label for="form8">Your message</label>
->>>>>>> a11fee1d6867392cb89c69451405a7790807a223
-                  </div>
-                  <div class="text-center">
-                    <input type='submit' class="btn btn-danger" value='Deactivate'>
+                 
+                  <p><a href="{{url_for('admin.delete_user',id=user_id}}">Deactivation Form</a>
+                  
                     <hr>
                     <fieldset class="form-check">
                       <p><a href='{{url_for('auth.register')}}'>Or... Add a new user<a/></p>
