@@ -64,59 +64,6 @@
     padding: 0;
   }
 
-header {
-    align-items: center;
-    display: flex;
-    font-size: 18px;
-    height: 100vh;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    text-align: center;
-    transform-style: preserve-3d;
-    perspective: 100px;
-  }
-
-  header:before {
-    animation: fade-slide-down 2s .5s cubic-bezier(0.5, 0.0, 0, 1) fowards;
-    background-size: cover;
-    content: "";
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-  }
-  
-  header:after {
-    animation: rotate-up .5s .5s cubic-bezier(0, 0.5, 0, 1) forwards;
-    background: #F9FCFF;
-    content: "";
-    height: 40rem;
-    left: -5%;
-    position: absolute;
-      right: -5%;
-      top: 90%;
-    transform-origin: 0 0;
-    z-index: 0;
-  }
-  
-  .header-title, .header-subtitle {
-    color: #fff;
-  }
-  .header-title{
-      font-size: xx-large;
-  }
-  .header-subtitle {
-    margin-top: 20px;  
-    text-transform: uppercase;
-    margin-bottom: 5rem;
-    font-size: medium;
-  }
-  
-
   .animate-pop-in {
     animation: pop-in .6s cubic-bezier(0, 0.9, 0.3, 1.2) forwards;
     opacity: 0;
@@ -129,15 +76,15 @@ header {
     animation-delay: 1.0s;
   }
   .card3 {
-    animation-delay: .7s;
+    animation-delay: 1.1s;
   }
   
   .card2 {
-    animation-delay: .5s;
+    animation-delay: 1.2s;
   }
   
   .cnt1 {
-    animation-delay: .3s;
+    animation-delay: 1.3s;
   }
   
   
@@ -157,7 +104,7 @@ header {
   @keyframes pop-in {
     0% {
       opacity: 0;
-      transform: translateY(-4rem) scale(.8);
+      transform: translateY(4rem) scale(.8);
     }
     100% {
       opacity: 1;
@@ -167,7 +114,7 @@ header {
   
   @keyframes rotate-up {
     100% {
-      transform: rotateZ(-4deg);
+      transform: rotateZ(4deg);
     }
 
   }
