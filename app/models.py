@@ -105,7 +105,7 @@ class Comment(db.Model):
         return f'Comment{self.comments}'
     
 class Wishlist(db.Model):
-    __tablename__ = 'wishlists' 
+    __tablename__ = 'wishlist' 
     
     id = db.Column(db.Integer, primary_key=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
