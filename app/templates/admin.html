@@ -2,6 +2,49 @@
 
 {% block content %}
 
-<h1>Welcome Admin</h1>
+<div class="jumbotron">
+  <h2 class="display-4">Hello, {{ current_user.username }}!</h2>
+  <p class="lead">Hello,  Welcome To The Admin Dashboard</p>
+  <hr class="my-4">
+  <p>You can add new users and specify there roles... deactivate users and approve, edit or delete contents posted on the blogs</p>
+  <a class="btn btn-primary btn-lg" href="{{url_for('main.index')}}" role="button">Contents Review</a>
+  <a class="btn btn-primary btn-lg" href="{{url_for('main.index')}}" role="button">Blogs Page</a>
+  <a class="btn btn-primary btn-lg" href="{{url_for('auth.register')}}" role="button">Add User</a>
+</div>
+
+<div class="container">
+<h2>All User Accounts</h2>
+ {% for users in user %}
+    <div class="row">
+        <div class='col-sm-5 col-md-6 col-lg-7'>
+
+        <!-- Card -->
+
+<div class="card card-image"
+  style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
+
+  <!-- Content -->
+  <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+    <div>
+      <h3 class="text-secondary"><i class="fas fa-user-cog"></i>{{ users.username }}</h3>
+      <h3 class="card-title pt-2"><strong> {{ users.email }}</strong></h3>
+     
+      <p>User ID :  {{ users.id }}</p>
+      <form action="{{url_for('admin.delete_user',id=users.id)}}" method='POST'>
+        <input class='btn btn-pink' type='submit' value='Deactivate User'>
+        </form>
+     
+    </div>
+  </div>
+
+</div>
+<!-- Card -->
+
+    </div>
+    </div>
+    <hr>
+ {% endfor %}
+
+</div>
 
 {% endblock %}
