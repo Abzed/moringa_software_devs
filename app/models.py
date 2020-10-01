@@ -20,7 +20,9 @@ class User(UserMixin,db.Model):
     is_student = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))    
-    wishlist_id = db.Column(db.Integer, db.ForeignKey('wishlist.id'))    
+    wishlist_id = db.Column(db.Integer, db.ForeignKey('wishlist.id'))
+    profile_pic_path = db.Column(db.String())
+    photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")    
     
     @property
     def password(self):
@@ -42,7 +44,14 @@ class Role(db.Model, RoleMixin):
     name = db.Column(db.String(50))
     description = db.Column(db.String(200))
     user_id = db.relationship('User', backref='roles', lazy='dynamic')
-    
+
+class PhotoProfile(db.Model):
+    __tablename__ = 'profile_photos'
+
+    id = db.Column(db.Integer,primary_key = True)
+    pic_path = db.Column(db.String())
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
 class Department(db.Model):
     __tablename__ = 'departments'
 
