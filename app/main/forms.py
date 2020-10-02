@@ -1,6 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField
+from wtforms import StringField, TextAreaField, SubmitField, FileField
 from wtforms.validators import Required
+from flask_uploads import configure_uploads, IMAGES, UploadSet
+
+class MyForm(FlaskForm):
+    image = FileField('image')
 
 class CommentForm(FlaskForm):
     title = StringField('Comment Title', validators=[Required()])

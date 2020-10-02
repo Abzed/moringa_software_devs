@@ -35,12 +35,12 @@
         <h6 class="h6 pb-1"><i class="fas fa-desktop pr-1"></i>{{ items.categories }}</h6>
       </a>
 
-      <h4 class="h4 mb-4"></h4>
+      <h4 class="h4 mb-4">{{ items.title| capitalize  }}   </h4>
 
-      <p class="font-weight-normal">{{ items.title }}</p>
-      <p class="font-weight-normal">by <a><strong>{{ items.</strong></a>, 19/08/2016</p>
+      <p class="font-weight-normal">{{ items.post }}</p>
+      <p class="font-weight-normal">posted at, {{ items.posted.strftime('%d-%m-%Y') }}</p>
 
-      <a class="btn btn-secondary btn-sm">{{ items.post }}</a>
+      <a class="btn btn-secondary btn-sm"></a>
       <a class="btn btn-warning btn-sm"><i class="fas fa-flag"></i></a>
       <a class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></a>
       <a class="btn btn-teal btn-sm"><i class="fas fa-thumbs-down"></i></a>

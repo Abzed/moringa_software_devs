@@ -1,6 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from .forms import BioForm, CommentForm, UpdateProfile,BlogForm
+from .forms import BioForm, CommentForm, UpdateProfile,BlogForm, MyForm
+from ..models import User,Role,Department,Post,Comment
 from ..models import User,Role,Department,Post,Comment,Category
 from flask_login import login_required,current_user
 from .. import db,photos
@@ -90,3 +91,4 @@ def view_pitch(id):
     #
     #comment = Comments.get_comments(id)
     return render_template('category.html', blogs=blogs, category_id=id)
+
