@@ -16,4 +16,4 @@ def index():
 @login_required
 def articles():
     category = Category.query.all()
-    return render_template('articles.html',category=category)
+    return render_template('blogs.html',category=category)

@@ -34,8 +34,9 @@ def delete_user(id):
 
 @admin.route('/category/new_category', methods=['GET','POST'])
 @login_required
-def category():
+def new_category():
     user = User.query.all()
+    category = Category.query.all()
     
     form = CategoryForm()
     if form.validate_on_submit():
@@ -43,9 +44,19 @@ def category():
         
         Category.save_category(category)
         
-        return redirect(url_for('main.index', user=user,category=category))
+        return redirect(url_for('admin.new_category', user=user,category=category))
     
-    return render_template('new_category.html',user=user,form=form)
+    return render_template('new_category.html',user=user,form=form,category=category)
+
+@admin.route('/categories/<int:id>')
+def category(id):
+    category = Category.query.get(id)
+    post = Post.query.filter_by(category=category.id).all()
+
+    # pitches=Pitch.get_pitches(id)
+    # title = f'{category.name} page'
+    return render_template('new_category.html', post=post, category=category)
+
 
         
         
