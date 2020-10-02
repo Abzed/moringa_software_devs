@@ -42,7 +42,9 @@
       <p class="font-weight-normal">by <a><strong>Carine Fox</strong></a>, 19/08/2016</p>
 
       <a class="btn btn-secondary btn-sm">Comment</a>
+      {% if current_user.is_staff %}
       <a class="btn btn-warning btn-sm"><i class="fas fa-flag"></i></a>
+      {% endif %}
       <a class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></a>
       <a class="btn btn-teal btn-sm"><i class="fas fa-thumbs-down"></i></a>
       <a class="btn btn-info btn-sm">Share</a>

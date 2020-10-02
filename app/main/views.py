@@ -18,7 +18,7 @@ def index():
 @login_required
 def categories():
     
-    return render_template('category-page.html')
+    return render_template('blogs.html')
 
 @main.route('/staff/<uname>')
 def profile(uname):
@@ -80,3 +80,16 @@ def new_blog():
         return redirect(url_for('main.index'))
     
     return render_template('new_blog.html', form=form,legend='New Post')
+
+@main.route('/categories/view_pitch/<int:id>', methods=['GET', 'POST'])
+@login_required
+def view_pitch(id):
+    '''
+    Function the returns a single pitch for comment to be added
+    '''
+    post = Post.query.get(id)
+    # pitches = P 2itch.query.filter_by(id=id).all()
+
+    #comment = Comments.get_comments(id)
+    return render_template('blogs.html', post=post, category_id=id)
+
