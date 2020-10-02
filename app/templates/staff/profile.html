@@ -1,9 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="outer">
-            <div class="card p-5 blue"></div>
-        </div>
+
+<!-- Card -->
+<div class="card testimonial-card">
+
+    <!-- Background color -->
+    <div class="card-up indigo lighten-1 mb-5"></div>
+  
+    <!-- Avatar -->
+    <div class="avatar mx-auto white">
+        {% if user.profile_pic_path %}
+        <img src="{{url_for('static',filename=user.profile_pic_path)}}" class="img-thumbnail rounded-circle" alt="avatar">
+        {%else%}
+        <img src="https://via.placeholder.com/200?text=No+Profile+Picture" class="rounded-circle" alt="placeholder">
+        {% endif %}
     </div>
+  
+    <!-- Content -->
+    <div class="card-body mt-4 text-center">
+      <!-- Name -->
+      <h3 class="card-title text-center">{{user.username| capitalize}}</h3>
+      <hr>
+      <!-- Displaying User Bio -->
+        {% if user.bio %}
+        <p class="text-center"><i class="fas fa-quote-left" ></i> {{user.bio}} <i class="fas fa-quote-right" ></i></p>
+        {%else%}
+        <p> {{user.username|capitalize}} has no bio </p>
+        {% endif %}
+      
+        <a href="{{url_for('main.update_profile',uname=current_user.username)}}" style="color: black;"><i class="far fa-edit fa-2x"></i></a>
+    </div>
+  
+  </div>
+  <!-- Card -->
 {% endblock content %}

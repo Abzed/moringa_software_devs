@@ -20,80 +20,10 @@
 </head>
 
 <body>
-    <header>
-    
- <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
-
       <!-- Brand -->
-      <a class="navbar-brand" href="#" target="_blank">
-        <strong>MSD</strong>
-      </a>
-
-      <!-- Collapse -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Links -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <!-- Left -->
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('main.index')}}">Home
-            </a>
-          </li>
-          <li class="nav-item">
-          {% if current_user.is_admin %}
-        <a class="nav-link" href="{{url_for('admin.admin_dashboard')}}">Admin Dashboard</a>
-        {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('main.articles')}}">All Articles</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url_for('admin.category')}}">Categories</a>
-          </li>
-        </ul>
-
-        <!-- Right -->
-        <ul class="navbar-nav nav-flex-icons">
-        {% if current_user.is_authenticated %}
-        {% if profile %}
-          <li class="nav-item">
-            <a href="https://www.facebook.com/" class="nav-link">My Profile
-              <i class="far fa-user-circle"></i>
-            </a>
-          </li>
-          {% else %}
-            <li class="nav-item">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded">Create Profile
-            </a>
-          </li>
-          {% endif %}
-          <li class="nav-item">
-            <a href="{{url_for('auth.logout')}}" class="nav-link">Sign Out
-             <i class="fas fa-user-alt-slash"></i>
-            </a>
-          </li>
-          {% else %}
-           <li class="nav-item">
-            <a href="{{url_for('auth.login')}}" class="nav-link">Sign In
-             <i class="fas fa-user-check"></i>
-            </a>
-          </li>
-        {% endif %}
-        </ul>
-
-      </div>
-
-    </div>
-  </nav>
-
-           
-
-    </header>
+{% block navbar %}
+  {% include 'navbar.html' %}
+{% endblock %}
 
     <div class="container-fluid video-player">
         <div class="container">
@@ -399,28 +329,7 @@
     </div>
 
     <footer class="container-fluid pt-5">
-        <div class="container">
-            <h2 class="logo text-center">Shahala</h2>
-            <nav class="nav nav-fill mx-auto mt-5">
-                <li class="nav-item">
-                    <a class="nav-link" href="https://facebook.com/fh5co" target="_blank"><i
-                            class="fab fa-facebook-f"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://facebook.com/fh5co" target="_blank"><i
-                            class="fab fa-twitter"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fab fa-instagram"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fab fa-google-plus-g"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="fas fa-rss"></i></a>
-                </li>
-            </nav>
-        </div>
+    
         <div class="copyright mt-4">
             <p class="text-center">&copy; 2019 <a href="#" class="text-white">Shahala</a>. All Rights Reserved. Design
                 by <a href="https://freehtml5.co/shahala" target="_blank" class="text-white">FreeHTML5.co</a>.</p>

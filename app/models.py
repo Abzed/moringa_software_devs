@@ -20,7 +20,9 @@ class User(UserMixin,db.Model):
     is_student = db.Column(db.Boolean, default=False)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     department_id = db.Column(db.Integer, db.ForeignKey('departments.id'))    
-    wishlist_id = db.Column(db.Integer, db.ForeignKey('wishlist.id'))    
+    wishlist_id = db.Column(db.Integer, db.ForeignKey('wishlist.id'))
+    profile_pic_path = db.Column(db.String())
+    photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")    
     
     @property
     def password(self):
@@ -42,7 +44,7 @@ class Role(db.Model, RoleMixin):
     name = db.Column(db.String(50))
     description = db.Column(db.String(200))
     user_id = db.relationship('User', backref='roles', lazy='dynamic')
-    
+
 class Department(db.Model):
     __tablename__ = 'departments'
 
@@ -80,8 +82,7 @@ class Post(db.Model):
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String,nullable=False)
-    posts = db.relationship('Content', backref='category', lazy='dynamic')
+    name = db.Column(db.String,nullable=False,unique=True)
 
     def save_category(self):
         db.session.add(self)
@@ -92,12 +93,7 @@ class Category(db.Model):
         categories = Category.query.all()
         return categories
 
-class Content(db.Model):
-    __tablename__='content'
-    
-id = db.Column(db.Integer, primary_key = True) 
-title = db.Column(db.String(),nullable=False)  
-category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+
    
 class Comment(db.Model):
     __tablename__ = 'comments' 
@@ -131,12 +127,17 @@ class Wishlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
     def __repr__(self):
         return f"Wishlist('{self.content}', '{self.date_posted}')"
     
-    
+class PhotoProfile(db.Model):
+    __tablename__ = 'profile_photos'
+
+    id = db.Column(db.Integer,primary_key = True)
+    pic_path = db.Column(db.String())
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+        
 #class Comment-id,commnt.... user_id.... post_id
 
 #class Content..... DevOPs,Fullstack,Front-End
