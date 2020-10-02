@@ -4,9 +4,13 @@
 
 {% block content %}
 <div class="container">
+{% if current_user.is_admin or current_user.is_staff %}
   {{wtf.quick_form(form)}}
+  
   <hr>
+  {% endif %}
   <br>
+  
 
  {{ macro.displayCategoryList(category) }}
 
