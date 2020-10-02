@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from .forms import BioForm, CommentForm, UpdateProfile,BlogForm
+from .forms import BioForm, CommentForm, UpdateProfile,BlogForm, MyForm
 from ..models import User,Role,Department,Post,Comment
 from ..models import User,Role,Department,Post,Comment,Category
 from flask_login import login_required,current_user
@@ -93,3 +93,13 @@ def view_pitch(id):
     #comment = Comments.get_comments(id)
     return render_template('blogs.html', post=post, category_id=id)
 
+@main.route('/upload', methods=['GET', 'POST'])
+def upload():
+    form = MyForm()
+
+    if form.validate_on_submit():
+        
+        filename = images.save(form.image.data)
+        return f'Filename: { filename }'
+
+    return render_template('upload.html', form=form)
