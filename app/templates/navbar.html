@@ -27,7 +27,7 @@
         <a class="nav-link" href="{{url_for('admin.admin_dashboard')}}">Admin Dashboard</a>
         {% endif %}
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('main.articles')}}">All Articles</a>
+            <a class="nav-link" href="{{url_for('main.posts')}}">All Articles</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{url_for('admin.new_category')}}">Categories</a>
@@ -48,7 +48,7 @@
           </li>
           {% else %}
             <li class="nav-item">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded">Create Profile
+            <a href="{{url_for('main.profile',uname=current_user.username)}}" class="nav-link border border-light rounded">Profile
             </a>
           </li>
           {% endif %}
