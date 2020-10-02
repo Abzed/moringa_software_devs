@@ -51,11 +51,11 @@ def new_category():
 @admin.route('/categories/<int:id>')
 def category(id):
     category = Category.query.get(id)
-    post = Post.query.filter_by(category=category.id).all()
+    post = Post.query.filter_by(categories=category.id).all()
 
     # pitches=Pitch.get_pitches(id)
     # title = f'{category.name} page'
-    return render_template('new_category.html', post=post, category=category)
+    return render_template('category.html', post=post, category=category,id=id)
 
 
         
