@@ -18,7 +18,7 @@ def index():
 @login_required
 def categories():
     
-    return render_template('category-page.html')
+    return render_template('blog.html')
 
 @main.route('/staff/<uname>')
 def profile(uname):
