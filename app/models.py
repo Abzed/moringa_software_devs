@@ -45,13 +45,6 @@ class Role(db.Model, RoleMixin):
     description = db.Column(db.String(200))
     user_id = db.relationship('User', backref='roles', lazy='dynamic')
 
-class PhotoProfile(db.Model):
-    __tablename__ = 'profile_photos'
-
-    id = db.Column(db.Integer,primary_key = True)
-    pic_path = db.Column(db.String())
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
-
 class Department(db.Model):
     __tablename__ = 'departments'
 
@@ -132,12 +125,17 @@ class Wishlist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     
     def __repr__(self):
         return f"Wishlist('{self.content}', '{self.date_posted}')"
     
-    
+class PhotoProfile(db.Model):
+    __tablename__ = 'profile_photos'
+
+    id = db.Column(db.Integer,primary_key = True)
+    pic_path = db.Column(db.String())
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+        
 #class Comment-id,commnt.... user_id.... post_id
 
 #class Content..... DevOPs,Fullstack,Front-End

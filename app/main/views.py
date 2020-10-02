@@ -46,7 +46,7 @@ def update_profile(uname):
 
     return render_template('staff/edit_bio.html', form=form)
 
-@main.route('/staff/<uname>/update',methods= ['POST'])
+@main.route('/staff/<uname>/update/pic',methods= ['POST'])
 @login_required
 def update_pic(uname):
     user = User.query.filter_by(username = uname).first()
