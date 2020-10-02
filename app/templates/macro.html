@@ -18,8 +18,8 @@
     {% endfor %}
 {% endmacro %}
 
-{% macro displayBlog(blog_list) %}
-  {% for blogs in blog_list %}
+{% macro displayPosts(blogs) %}
+  {% for items in blogs %}
   <br>
 <div class="container">
 <div class="row">
@@ -49,10 +49,10 @@
 
       <!-- Excerpt -->
       <a href="#!" class="green-text">
-        <h6 class="h6 pb-1"><i class="fas fa-desktop pr-1"></i>{{ blogs.categories }}</h6>
+        <h6 class="h6 pb-1"><i class="fas fa-desktop pr-1"></i>{{ items.categories }}</h6>
       </a>
 
-      <h4 class="h4 mb-4">{{ blogs.title }}</h4>
+      <h4 class="h4 mb-4">{{ items.title }}</h4>
 
       <p class="font-weight-normal">main</p>
       <p class="font-weight-normal">by <a><strong>Carine Fox</strong></a>, 19/08/2016</p>

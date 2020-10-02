@@ -13,7 +13,7 @@
         {% if user.profile_pic_path %}
         <img src="{{url_for('static',filename=user.profile_pic_path)}}" class="img-thumbnail rounded-circle" alt="avatar">
         {%else%}
-        <img src="https://via.placeholder.com/200?text=No+Profile+Picture" class="rounded-circle" alt="placeholder">
+        <img src="{{url_for('static',filename='photos/avatar2.png')}}" class="rounded-circle" alt="placeholder">
         {% endif %}
     </div>
   
