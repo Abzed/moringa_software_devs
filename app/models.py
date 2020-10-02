@@ -62,7 +62,7 @@ class Post(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     title = db.Column(db.String(255),nullable=False)
     post = db.Column(db.String(255),nullable=False)
-    category = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    categories = db.Column(db.Integer, db.ForeignKey('categories.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     posted = db.Column(db.DateTime,default=datetime.utcnow,onupdate=datetime.utcnow())
     
@@ -92,7 +92,9 @@ class Category(db.Model):
     def get_categories(cls):
         categories = Category.query.all()
         return categories
-    
+
+
+   
 class Comment(db.Model):
     __tablename__ = 'comments' 
     

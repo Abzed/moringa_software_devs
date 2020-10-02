@@ -1,0 +1,120 @@
+.outer{
+    min-width: 100%;
+    height: 100%;
+    background-color:transparent;
+    display: grid;
+    place-items: center;
+}
+.bg-landing{
+    background: linear-gradient(rgba(0, 0, 0, 0.356),rgba(0, 0, 0, 0.486)) ,url(/static/imgs_bg/studies.jpg)center center no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+}
+.bg-grad1{
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 95%);
+
+}  
+.bg-vh{
+    width: 100%;
+    height: 100vh;
+}
+.txt-bold{
+    font-weight:bolder;
+}
+.rnd{
+    border-radius: 20px;
+}
+.cover {
+    width: 260px;
+    object-fit: cover;
+  }
+.bg-centre{
+    width: 100%;
+    height: auto;
+    background: lightcyan;
+}
+.bg-img1{
+    background: url()center center no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 500px;
+}
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+  }
+  
+  /* Add some content at the bottom of the video/page */
+.content {
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+  }
+
+  *{
+    margin: 0;
+    padding: 0;
+  }
+
+  .animate-pop-in {
+    animation: pop-in .6s cubic-bezier(0, 0.9, 0.3, 1.2) forwards;
+    opacity: 0;
+  }
+  
+  .rocky-dashed {
+    animation-delay: .6s;
+  }
+  .card1 {
+    animation-delay: 1.0s;
+  }
+  .card3 {
+    animation-delay: 1.1s;
+  }
+  
+  .card2 {
+    animation-delay: 1.2s;
+  }
+  
+  .cnt1 {
+    animation-delay: 1.3s;
+  }
+  
+  
+  /* Animations */
+  
+  @keyframes fade-slide-down {
+    0% {
+      opacity: 0;
+      transform: translateY(-4rem);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  @keyframes pop-in {
+    0% {
+      opacity: 0;
+      transform: translateY(4rem) scale(.8);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  @keyframes rotate-up {
+    100% {
+      transform: rotateZ(4deg);
+    }
+
+  }
