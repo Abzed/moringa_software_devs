@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from .forms import BioForm, CommentForm, UpdateProfile
+from .forms import BioForm, CommentForm, UpdateProfile,BlogForm
 from ..models import User,Role,Department,Post,Comment
 from ..models import User,Role,Department,Post,Comment,Category
 from flask_login import login_required,current_user
@@ -64,3 +64,18 @@ def update_pic(uname):
 def articles():
     category = Category.query.all()
     return render_template('blogs.html',category=category)
+
+@main.route('/new_blog', methods=['GET','POST'])
+@login_required
+def new_blog():
+    form = BlogForm()
+    if form.validate_on_submit():
+        post = form.blog.data
+        title = form.title.data
+        new_blog=Post(post=post,title=title,user_id=current_user.id)
+        
+        new_blog.save_blog()
+        
+        return redirect(url_for('main.index'))
+    
+    return render_template('new_blog.html', form=form,legend='New Post')
