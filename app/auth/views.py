@@ -70,3 +70,4 @@ def wishlist():
 
     wishlists = Wishlist.query.all()
     return render_template('wishlist.html', wishlists=wishlists)
+

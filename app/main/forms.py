@@ -18,3 +18,10 @@ class CreateCategory(FlaskForm):
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.', validators=[Required()])
     submit = SubmitField('Submit')
+
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[Required()])
+    subtitle = StringField('Subtitle', validators=[Required()])
+    author = StringField('Author', validators=[Required()])
+    content = TextAreaField('BlogPost', validators=[Required()])
+    submit = SubmitField('Submit')
