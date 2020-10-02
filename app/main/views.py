@@ -60,7 +60,7 @@ def update_pic(uname):
 
     return redirect(url_for('.profile',uname=uname))
 
-
+@main.route('/articles')
 def articles():
     category = Category.query.all()
     return render_template('blogs.html',category=category)
