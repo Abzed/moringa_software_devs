@@ -13,37 +13,39 @@
 </div>
 
 <div class="container">
-<h2>All User Accounts</h2>
- {% for users in user %}
-    <div class="row">
-        <div class='col-sm-5 col-md-6 col-lg-7'>
-
-        <!-- Card -->
-
-<div class="card card-image"
-  style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
-
-  <!-- Content -->
-  <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-    <div>
-      <h3 class="text-secondary"><i class="fas fa-user-cog"></i>{{ users.username }}</h3>
-      <h3 class="card-title pt-2"><strong> {{ users.email }}</strong></h3>
-     
-      <p>User ID :  {{ users.id }}</p>
-      <form action="{{url_for('admin.delete_user',id=users.id)}}" method='POST'>
-        <input class='btn btn-pink' type='submit' value='Deactivate User'>
-        </form>
-     
-    </div>
+  <div class="table-responsive text-nowrap">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">username</th>
+          <th scope="col">email</th>
+          <th scope="col">user id</th>
+          <th scope="col">
+            <div class="outer">
+              <div class="container">
+                deactivate
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for users in user %}
+            <tr>
+                <td>{{ users.username }}</td>
+                <td>{{ users.email }}</td>
+                <td>{{ users.id }}</td>
+                <td><div class="outer"><div class="container">
+                  <form action="{{url_for('admin.delete_user',id=users.id)}}" method='POST'>
+                    <input class='btn btn-pink' type='submit' value='Deactivate User'>
+                    </form>
+                </div></div></td>
+              </tr>
+            {% endfor %}
+      </tbody>
+    </table>
   </div>
 
-</div>
-<!-- Card -->
-
-    </div>
-    </div>
-    <hr>
- {% endfor %}
 
 </div>
 

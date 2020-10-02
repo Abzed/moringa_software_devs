@@ -11,7 +11,8 @@ from .. import db,photos
 @main.route('/')
 def index():   
     user = User.query.all()  
-    return render_template('home-page.html', user=user)
+    return render_template('index.html', user=user)
+
 
 @main.route('/all_articles')
 @login_required
@@ -59,3 +60,8 @@ def update_pic(uname):
         db.session.commit()
 
     return redirect(url_for('.profile',uname=uname))
+
+@main.route('/all_articles')    
+def articles():
+    category = Category.query.all()
+    return render_template('blogs.html',category=category)
