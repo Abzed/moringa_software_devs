@@ -1,0 +1,19 @@
+{% macro displayCategoryList(category) %}
+    {% for items in category%}
+      <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/forest2.jpg);">
+  <div class="text-white text-center rgba-stylish-strong py-1 px-0">
+    <div class="py-5">
+
+      <!-- Content -->
+      <h5 class="h5 orange-text"><i class="fas fa-align-justify"></i> Category</h5>
+      <h2 class="card-title h2 my-4 py-2">{{ items.name }}</h2>
+      <a href='{{url_for('admin.category',id=items.id)}}' class="btn peach-gradient"><i class="fas fa-align-justify"></i> View Category</a>
+
+    </div>
+  </div>
+</div>
+
+<br>
+
+    {% endfor %}
+{% endmacro %}

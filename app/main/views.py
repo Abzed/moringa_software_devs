@@ -60,4 +60,4 @@ def update_pic(uname):
     return redirect(url_for('.profile',uname=uname))
 def articles():
     category = Category.query.all()
-    return render_template('articles.html',category=category)
+    return render_template('blogs.html',category=category)

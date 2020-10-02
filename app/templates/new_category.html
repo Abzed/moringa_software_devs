@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
+{% import 'macro.html' as macro%}
 
 {% block content %}
 <div class="container">
   {{wtf.quick_form(form)}}
+  <hr>
+  <br>
+
+ {{ macro.displayCategoryList(category) }}
+
+ 
 </div>
 {% endblock %}
