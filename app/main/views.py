@@ -17,6 +17,7 @@ def index():
 @main.route('/all_articles')
 @login_required
 def categories():
+    
     return render_template('category-page.html')
 
 @main.route('/staff/<uname>')
@@ -32,7 +33,7 @@ def profile(uname):
 @login_required
 def update_profile(uname):
     user = User.query.filter_by(username=uname).first()
-    if user is None:
+    if user is None :
         abort(404)
 
     form = UpdateProfile()
@@ -60,7 +61,7 @@ def update_pic(uname):
 
     return redirect(url_for('.profile',uname=uname))
 
-@main.route('/articles')
+@main.route('/all_articles')    
 def articles():
     category = Category.query.all()
     return render_template('blogs.html',category=category)
