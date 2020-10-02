@@ -12,16 +12,14 @@ class BioForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class CreateCategory(FlaskForm):
-    category = StringField('Category', validators=[Required()])
-    submit = SubmitField('Submit')
+     category = StringField('Category', validators=[Required()])
+     submit = SubmitField('Submit')
 
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.', validators=[Required()])
     submit = SubmitField('Submit')
-
-class PostForm(FlaskForm):
-    title = StringField('Title', validators=[Required()])
-    subtitle = StringField('Subtitle', validators=[Required()])
-    author = StringField('Author', validators=[Required()])
-    content = TextAreaField('BlogPost', validators=[Required()])
-    submit = SubmitField('Submit')
+    
+class BlogForm(FlaskForm):
+    title = StringField('Article Title', validators=[Required()])
+    blog = TextAreaField('Write Blog...')
+    submit = SubmitField('submit')
