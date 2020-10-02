@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h2 class="display-4">Hello, {{ current_user.username }}!</h2>
+  <p class="lead">Hello,  Welcome To The Admin Dashboard</p>
+  <hr class="my-4">
+  <p>You can add new users and specify there roles... deactivate users and approve, edit or delete contents posted on the blogs</p>
+  <a class="btn btn-primary btn-lg" href="{{url_for('main.index')}}" role="button">Contents Review</a>
+  <a class="btn btn-primary btn-lg" href="{{url_for('main.index')}}" role="button">Blogs Page</a>
+  <a class="btn btn-primary btn-lg" href="{{url_for('auth.register')}}" role="button">Add User</a>
+</div>
+
+<div class="container">
+  <div class="table-responsive text-nowrap">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">username</th>
+          <th scope="col">email</th>
+          <th scope="col">user id</th>
+          <th scope="col">
+            <div class="outer">
+              <div class="container">
+                deactivate
+              </div>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for users in user %}
+            <tr>
+                <td>{{ users.username }}</td>
+                <td>{{ users.email }}</td>
+                <td>{{ users.id }}</td>
+                <td><div class="outer"><div class="container">
+                  <form action="{{url_for('admin.delete_user',id=users.id)}}" method='POST'>
+                    <input class='btn btn-pink' type='submit' value='Deactivate User'>
+                    </form>
+                </div></div></td>
+              </tr>
+            {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+</div>
+
+{% endblock %}

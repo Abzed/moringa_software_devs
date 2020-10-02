@@ -1,0 +1,15 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<h1>here is your wishlist</h1>
+    
+    {% for wishlist in wishlists %}
+        <article class="media content-section">
+          
+          <div class="media-body">
+            <h4><a class="article-title">{{ wishlist.content }}</a></h4>
+            <p class="article-content">{{ wishlist.date_posted }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

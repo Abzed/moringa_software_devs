@@ -1,13 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField,SubmitField,BooleanField
-from wtforms.validators import Required,Email,EqualTo
-from ..model_admin import User
+from wtforms import StringField,PasswordField,SubmitField,BooleanField,SelectField,TextAreaField
+from wtforms.validators import Required,Email,EqualTo,DataRequired
+from ..models import User,Role,Department
 from wtforms import ValidationError
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Your Email Address',validators=[Required(),Email()])
-    username = StringField('Enter your username',validators = [Required()])
+    staff = BooleanField('Staff')
+    admin = BooleanField('Admin')
+    email = StringField('User Email Address',validators=[Required(),Email()])
+    username = StringField('Username',validators = [Required()])
     password = PasswordField('Password',validators = [Required(), EqualTo('password_confirm',message = 'Passwords must match')])
     password_confirm = PasswordField('Confirm Passwords',validators = [Required()])
     submit = SubmitField('Sign Up')
@@ -25,3 +27,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password',validators =[Required()])
     remember = BooleanField('Remember me')
     submit = SubmitField('Log In')
+
+class WishlistForm(FlaskForm):
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('add to wishlist')     

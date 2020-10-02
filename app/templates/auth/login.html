@@ -2,23 +2,51 @@
 {% import 'bootstrap/wtf.html' as wtf%}
 
 {% block content %}
-<div class="container"> 
-    <div class="row">
-      <div class= "col-md-2"> </div>
-      <div class="col-md-8">
-      <!--Flash message -->
-      {% for message in get_flashed_messages() %}
-        <div class="alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
-        </div>
-      {% endfor %}
-      <!-- Login form -->
-      {{wtf.quick_form(login_form)}}
-      <p> Don't have an account? <a href="{{url_for('auth.register')}}">Sign up here</a></p>
-     </div>
-     <div clas="col-md-2"> </div>
-    </div>
-</div>
+<section class="bg-vh">
+  <div class="outer">
+    <div class="container"> 
+      <div class="row">
+        <div class= "col-md-2"> </div>
+        <div class="col-md-8">
+        <!--Flash message -->
+        {% for message in get_flashed_messages() %}
+          <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          {{ message }}
+          </div>
+        {% endfor %}
+        <!-- Login form -->
+        <div class="card p-5 m-3 shadow-md bg-light darken-4">
+          <div class="container">
+            <form method="POST" >
+              {{ login_form.hidden_tag() }}
+                <div class="form-group">
+                  {{ login_form.username.label }}
+                  {{ login_form.username(class_='form-control') }}
+                </div>
+                <div class="form-group">
+                  {{ login_form.password.label }}
+                  {{ login_form.password(class_='form-control') }}
+                </div>
+                <div class="form-group form-check">
+                  {{ login_form.remember(class_='form-check-input') }}
+                  {{ login_form.remember.label }}
+                </div>
+                {{ login_form.submit(class_='btn btn-primary btn-md') }}
+            </form>
+          </div>
+          <div class="container">
+            <p> Don't have an account? Contact admin at:</p>
+            <a href="mailto:abzedtet@gmail.com">abzedtet@gmail.com</a>
+          </div>
+      </div>
+       </div>
+       <div clas="col-md-2"> </div>
+      </div>
+  </div>
+  </div>
+</section>
+
+
 
 {% endblock%}

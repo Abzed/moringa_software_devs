@@ -1,48 +1,73 @@
-<nav class="mb-1 navbar navbar-expand-lg navbar-dark default-color">
-  <a class="navbar-brand" href="/">BLOG QUOTES</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-  <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
+<!--Navbar -->
+ <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand" href="#" target="_blank">
+        <strong>MSD</strong>
+      </a>
+
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <!-- Left -->
+        <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-        <a class="nav-link" href="{{url_for('main.new_blog')}}">Create Blog</a>
-      </li>
-      </ul>
+            <a class="nav-link" href="{{url_for('main.index')}}">Home
+            </a>
+          </li>
+          <li class="nav-item">
+          {% if current_user.is_admin %}
+        <a class="nav-link" href="{{url_for('admin.admin_dashboard')}}">Admin Dashboard</a>
+        {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('main.posts')}}">All Articles</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('admin.new_category')}}">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('auth.new_wishlist') }}">wishlist</a>
+          </li>
+        </ul>
 
-    <ul class="navbar-nav ml-auto">
- {% if current_user.is_authenticated %}
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user"></i> {{ current_user.username }} </a>
-        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-          <a class="dropdown-item" href="{{url_for('main.profile',uname=current_user.username)}}">My account</a>
-          <a class="dropdown-item" href="{{url_for('auth.logout')}}">Log out</a>
-        </div>
-      </li>
+        <!-- Right -->
+        <ul class="navbar-nav nav-flex-icons">
+        {% if current_user.is_authenticated %}
+        {% if profile %}
+          <li class="nav-item">
+            <a href="#" class="nav-link">My Profile
+              <i class="far fa-user-circle"></i>
+            </a>
+          </li>
+          {% else %}
+            <li class="nav-item">
+            <a href="{{url_for('main.profile',uname=current_user.username)}}" class="nav-link border border-light rounded">Profile
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a href="{{url_for('auth.logout')}}" class="nav-link">Sign Out
+             <i class="fas fa-user-alt-slash"></i>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a href="{{url_for('auth.login')}}" class="nav-link">Sign In
+             <i class="fas fa-user-check"></i>
+            </a>
+          </li>
+        {% endif %}
+        </ul>
 
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('main.subscribe')}}">
-        <i class="fab fa-sign-in" aria-hidden="true"></i>Subscribe</a>
-        </a>
-      </li>
+      </div>
 
-      {% else %}
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('auth.login')}}">
-          <i class="fab fa-sign-in" aria-hidden="true"></i> Sign-In</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="{{url_for('auth.register')}}">
-          <i class="fab fa-sign-in" aria-hidden="true"></i> Create Account</a>
-      </li>
-      {%endif%}
-    </ul>
-  </div>
-</nav>
+    </div>
+  </nav>
 <!--/.Navbar -->

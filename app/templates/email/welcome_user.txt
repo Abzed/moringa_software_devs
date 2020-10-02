@@ -1,4 +1,7 @@
-Hello {{user.username}}
-Welcome to Moringa Family Devs
-We have just seen you have signed up for our application and want to welcome you to the family.
-Please enjoy the blogs, comments, upvotes and downvotes of all blogs.
+Hello,
+Welcome to Moringa Family Devs. Get educated, inspired and motivated
+to pursue you career and passion on Programming!
+Your Logging credential are:
+Email : {{user.email}}
+Username : {{user.username}}
+Password : 123ABC

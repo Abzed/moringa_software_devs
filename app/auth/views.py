@@ -1,7 +1,7 @@
 from flask import render_template,redirect,url_for,flash,request
 from flask_login import login_user,logout_user,login_required
-from ..model_admin import User
-from .forms import RegistrationForm, LoginForm
+from ..models import User, Role, Department, Wishlist
+from .forms import RegistrationForm, LoginForm, WishlistForm
 from .. import db
 from . import auth
 from ..email import mail_message
@@ -13,14 +13,17 @@ def logout():
     return redirect(url_for("main.index"))
 
 @auth.route('/register',methods = ["GET","POST"])
+
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email = form.email.data, username = form.username.data,password = form.password.data)
+        user = User(email = form.email.data, username = form.username.data,password = form.password.data
+                    ,is_admin=form.admin.data, is_staff=form.staff.data
+                    )
         db.session.add(user)
         db.session.commit()
         
-        mail_message("Welcome to watchlist","email/welcome_user",user.email,user=user)
+        mail_message("Welcome to Moringa Software Devs","email/welcome_user",user.email,user=user)
         
         flash('Account Successfully created')
         
@@ -35,9 +38,36 @@ def login():
         user = User.query.filter_by(username = login_form.username.data).first()
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user,login_form.remember.data)
+            
+            if user.is_admin:
+                return redirect(url_for('admin.admin_dashboard'))
+            else:
+                return redirect(url_for('main.index'))
+            
             return redirect(request.args.get('next') or url_for('main.index'))
 
         flash('Invalid username or Password')
 
-    title = "Quote Bloggers login"
+    title = "Software Devs"
     return render_template('auth/login.html',login_form = login_form,title=title)
+
+@auth.route("/wishlist/new", methods=['GET', 'POST'])
+@login_required
+def new_wishlist():
+    form = WishlistForm()
+    if form.validate_on_submit():
+        wishlist = Wishlist(content=form.content.data)
+        db.session.add(wishlist)
+        db.session.commit()
+        flash('Added to your wishlist!', 'success')
+        return redirect(url_for('auth.wishlist'))
+    return render_template('create_wishlist.html', title='New Wishlist',
+                           form=form, legend='New Wishlist')
+
+
+@auth.route("/wishlist")
+def wishlist():
+
+    wishlists = Wishlist.query.all()
+    return render_template('wishlist.html', wishlists=wishlists)
+

@@ -1,38 +1,94 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-# from ..request import get_quotes
-from .forms import BlogForm,BioForm, CommentForm
-from ..model_admin import User
+from .forms import BioForm, CommentForm, UpdateProfile,BlogForm, MyForm
+from ..models import User,Role,Department,Post,Comment
+from ..models import User,Role,Department,Post,Comment,Category
 from flask_login import login_required,current_user
 from .. import db,photos
-from ..request import get_quote
-from werkzeug.contrib.atom import AtomFeed
-from urllib.parse import urljoin
+#from flask_user import roles_required
 
-def get_abs_url(url):
-    """ Returns absolute url by joining post url with base url """
-    return urljoin(request.url_root, url)
-
+# @route() must always be the outer-most decorator
 @main.route('/')
-@login_required
 def index():
-   
-    return render_template('index.html')
+    user = User.query.all()  
+    return render_template('index.html', user=user,posts=posts)
 
-@main.route('/feeds')
-def feeds():
-    feed = AtomFeed(title='Latest Posts from My Blog',
-                    feed_url=request.url, url=request.url_root)
+@main.route('/staff/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
 
-    # Sort post by created date
-    a = A.query.all()
+    if user is None:
+        abort(404)
 
-    for all in a:
-        feed.add(all.title, all.posted,
-                 content_type='html',
-                 id = all.id,
-                 author= all.blogger.username,
-                 published=all.posted,
-                 updated=all.posted)
+    return render_template("staff/profile.html", user = user)
 
-    return feed.get_response()
+@main.route('/staff/<uname>/update', methods=['GET', 'POST'])
+@login_required
+def update_profile(uname):
+    user = User.query.filter_by(username=uname).first()
+    if user is None :
+        abort(404)
+
+    form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile', uname=user.username))
+
+    return render_template('staff/edit_bio.html', form=form)
+
+@main.route('/staff/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+
+        db.session.commit()
+
+    return redirect(url_for('.profile',uname=uname))
+
+@main.route('/categories/view_pitch/add/<int:id>', methods=['GET','POST'])
+@login_required
+def new_blog(id):
+    form = BlogForm()
+    category = Category.query.filter_by(id=id).first()
+    if form.validate_on_submit():
+        post = form.post.data
+        title = form.title.data
+        new_post=Post(post=post,title=title,categories=category.id ,user_id=current_user.id)
+        
+        new_post.save_blog()
+        
+        return redirect(url_for('admin.category',id=category.id))
+    
+    return render_template('new_blog.html', form=form,legend='New Post',category = category)
+
+@main.route('/all_posts', methods=['GET', 'POST'])
+@login_required
+def posts():
+    posts = Post.query.all()
+    
+    return render_template('blogs.html',posts=posts)
+
+@main.route('/categories/view_blog/<int:id>', methods=['GET', 'POST'])
+@login_required
+def view_pitch(id):
+    '''
+    Function the returns a single pitch for comment to be added
+    '''
+    blogs = Post.query.get(id)
+    # pitches = P 2itch.query.filter_by(id=id).all()
+
+    if blogs is None:
+        abort(404)
+    #
+    #comment = Comments.get_comments(id)
+    return render_template('category.html', blogs=blogs, category_id=id)
+
