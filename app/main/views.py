@@ -1,7 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
 from .forms import BioForm, CommentForm, UpdateProfile,BlogForm
-from ..models import User,Role,Department,Post,Comment
 from ..models import User,Role,Department,Post,Comment,Category
 from flask_login import login_required,current_user
 from .. import db,photos
@@ -9,16 +8,9 @@ from .. import db,photos
 
 # @route() must always be the outer-most decorator
 @main.route('/')
-def index():   
+def index():
     user = User.query.all()  
-    return render_template('index.html', user=user)
-
-
-@main.route('/all_articles')
-@login_required
-def categories():
-    
-    return render_template('blogs.html')
+    return render_template('index.html', user=user,posts=posts)
 
 @main.route('/staff/<uname>')
 def profile(uname):
@@ -61,35 +53,40 @@ def update_pic(uname):
 
     return redirect(url_for('.profile',uname=uname))
 
-@main.route('/all_articles')    
-def articles():
-    category = Category.query.all()
-    return render_template('blogs.html',category=category)
-
-@main.route('/new_blog', methods=['GET','POST'])
+@main.route('/categories/view_pitch/add/<int:id>', methods=['GET','POST'])
 @login_required
-def new_blog():
+def new_blog(id):
     form = BlogForm()
+    category = Category.query.filter_by(id=id).first()
     if form.validate_on_submit():
-        post = form.blog.data
+        post = form.post.data
         title = form.title.data
-        new_blog=Post(post=post,title=title,user_id=current_user.id)
+        new_post=Post(post=post,title=title,categories=category.id ,user_id=current_user.id)
         
-        new_blog.save_blog()
+        new_post.save_blog()
         
-        return redirect(url_for('main.index'))
+        return redirect(url_for('admin.category',id=category.id))
     
-    return render_template('new_blog.html', form=form,legend='New Post')
+    return render_template('new_blog.html', form=form,legend='New Post',category = category)
 
-@main.route('/categories/view_pitch/<int:id>', methods=['GET', 'POST'])
+@main.route('/all_posts', methods=['GET', 'POST'])
+@login_required
+def posts():
+    posts = Post.query.all()
+    
+    return render_template('blogs.html',posts=posts)
+
+@main.route('/categories/view_blog/<int:id>', methods=['GET', 'POST'])
 @login_required
 def view_pitch(id):
     '''
     Function the returns a single pitch for comment to be added
     '''
-    post = Post.query.get(id)
+    blogs = Post.query.get(id)
     # pitches = P 2itch.query.filter_by(id=id).all()
 
+    if blogs is None:
+        abort(404)
+    #
     #comment = Comments.get_comments(id)
-    return render_template('blogs.html', post=post, category_id=id)
-
+    return render_template('category.html', blogs=blogs, category_id=id)

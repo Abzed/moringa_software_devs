@@ -8,7 +8,7 @@
     
  <h3 class="text-center">{{category.name|upper}}</h3>
 
-   <a class="btn btn-primary text-center text-success" href="{{url_for('main.new_blog')}}"> Post An Articl</a>
+   <a class="btn btn-primary text-center text-warning" href="{{url_for('main.new_blog',id=category.id)}}"> Post An Article</a>
 
         
         <hr>
@@ -17,7 +17,7 @@
 
     {% if post %}
       <div class="col-sm-12 col-md-8">
-          {{ macro.displayPosts(post)}}
+          {{ macro.displayBlog(blogs)}}
       </div>
     {%else%}
         <div class="well">

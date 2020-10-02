@@ -2,12 +2,11 @@
  {% extends 'base.html'%}
 
 {% block content %}
-<br>
+ {% for items in posts %}
+  <br>
 <div class="container">
 <div class="row">
 <div class="col-sm-9 col-md-10 col-lg-10">
-
-    
     
 <div class="jumbotron text-center hoverable p-4">
 
@@ -33,18 +32,16 @@
 
       <!-- Excerpt -->
       <a href="#!" class="green-text">
-        <h6 class="h6 pb-1"><i class="fas fa-desktop pr-1"></i> category</h6>
+        <h6 class="h6 pb-1"><i class="fas fa-desktop pr-1"></i>{{ items.categories }}</h6>
       </a>
 
-      <h4 class="h4 mb-4">Article title</h4>
+      <h4 class="h4 mb-4">{{ items.title }}</h4>
 
       <p class="font-weight-normal">main</p>
       <p class="font-weight-normal">by <a><strong>Carine Fox</strong></a>, 19/08/2016</p>
 
-      <a class="btn btn-secondary btn-sm">Comment</a>
-      {% if current_user.is_staff %}
+      <a class="btn btn-secondary btn-sm">{{ items.post }}</a>
       <a class="btn btn-warning btn-sm"><i class="fas fa-flag"></i></a>
-      {% endif %}
       <a class="btn btn-primary btn-sm"><i class="fas fa-thumbs-up"></i></a>
       <a class="btn btn-teal btn-sm"><i class="fas fa-thumbs-down"></i></a>
       <a class="btn btn-info btn-sm">Share</a>
@@ -60,6 +57,7 @@
 </div>
 </div>
 </div>
+  {% endfor %}
 <!-- News jumbotron -->
 
 {% endblock %}
